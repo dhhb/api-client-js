@@ -1,0 +1,27 @@
+{
+  "name": "api-client-js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dhhb/api-client-js.git"
+  },
+  "author": "Dmitri Voronianski <dmitri.voronianski@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dhhb/api-client-js/issues"
+  },
+  "homepage": "https://github.com/dhhb/api-client-js#readme",
+  "dependencies": {
+    "superagent": "^3.5.0",
+    "superagent-jsonapify": "^1.4.4"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.1.1",
+    "eslint": "^3.16.1"
+  }
+}
