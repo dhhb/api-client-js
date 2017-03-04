@@ -124,7 +124,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return jsonData;
 	  };
 
-	  prvt._parseJsonApiError = function () {
+	  prvt.parseJsonApiError = function () {
 	    var err = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
 	    var jsonData = {
@@ -143,7 +143,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return jsonData;
 	  };
 
-	  prvt._request = function (resource) {
+	  prvt.request = function (resource) {
 	    var method = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'GET';
 	    var params = arguments[2];
 	    var query = arguments[3];
@@ -167,7 +167,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          pblc.events.emit('unauthorized', err);
 	        }
 
-	        reject(prvt._parseJsonApiError(err));
+	        reject(prvt.parseJsonApiError(err));
 	      });
 	    });
 	  };
@@ -180,7 +180,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  };
 
 	  pblc.authorize = function (creds) {
-	    return prvt._request('/token', 'POST', prvt._createJsonApiRecord('token', creds));
+	    return prvt.request('/token', 'POST', prvt.createJsonApiRecord('token', creds));
 	  };
 	  pblc.login = pblc.authorize; // alias
 
@@ -194,23 +194,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	      query.include = opts.include;
 	    }
 
-	    return prvt._request('/users', 'GET', {}, query);
+	    return prvt.request('/users', 'GET', {}, query);
 	  };
 
 	  pblc.getUser = function (id) {
-	    return prvt._request('/users/' + id, 'GET');
+	    return prvt.request('/users/' + id, 'GET');
 	  };
 
 	  pblc.createUser = function (data) {
-	    return prvt._request('/users', 'POST', prvt._createJsonApiRecord('users', data));
+	    return prvt.request('/users', 'POST', prvt.createJsonApiRecord('users', data));
 	  };
 
 	  pblc.updateUser = function (data, id) {
-	    return prvt._request('/users/' + id, 'PATCH', prvt._createJsonApiRecord('users', id, data));
+	    return prvt.request('/users/' + id, 'PATCH', prvt.createJsonApiRecord('users', id, data));
 	  };
 
 	  pblc.deleteUser = function (id) {
-	    return prvt._request('/users/' + id, 'DELETE');
+	    return prvt.request('/users/' + id, 'DELETE');
 	  };
 
 	  // Articles
@@ -227,23 +227,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	      query.filter = _extends({}, opts.filter);
 	    }
 
-	    return prvt._request('/articles', 'GET', {}, query);
+	    return prvt.request('/articles', 'GET', {}, query);
 	  };
 
 	  pblc.getArticle = function (id) {
-	    return prvt._request('/articles/' + id, 'GET');
+	    return prvt.request('/articles/' + id, 'GET');
 	  };
 
 	  pblc.createArticle = function (data) {
-	    return prvt._request('/articles', 'POST', prvt._createJsonApiRecord('articles', data));
+	    return prvt.request('/articles', 'POST', prvt.createJsonApiRecord('articles', data));
 	  };
 
 	  pblc.updateArticle = function (data, id) {
-	    return prvt._request('/articles/' + id, 'PATCH', prvt._createJsonApiRecord('articles', id, data));
+	    return prvt.request('/articles/' + id, 'PATCH', prvt.createJsonApiRecord('articles', id, data));
 	  };
 
 	  pblc.deleteArticle = function (id) {
-	    return prvt._request('/articles/' + id, 'DELETE');
+	    return prvt.request('/articles/' + id, 'DELETE');
 	  };
 
 	  // Categories
@@ -256,23 +256,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	      query.include = opts.include;
 	    }
 
-	    return prvt._request('/categories', 'GET', {}, query);
+	    return prvt.request('/categories', 'GET', {}, query);
 	  };
 
 	  pblc.getCategory = function (id) {
-	    return prvt._request('/categories/' + id, 'GET');
+	    return prvt.request('/categories/' + id, 'GET');
 	  };
 
 	  pblc.createCategory = function (data) {
-	    return prvt._request('/categories', 'POST', prvt._createJsonApiRecord('categories', data));
+	    return prvt.request('/categories', 'POST', prvt.createJsonApiRecord('categories', data));
 	  };
 
 	  pblc.updateCategory = function (data, id) {
-	    return prvt._request('/categories/' + id, 'PATCH', prvt._createJsonApiRecord('categories', id, data));
+	    return prvt.request('/categories/' + id, 'PATCH', prvt.createJsonApiRecord('categories', id, data));
 	  };
 
 	  pblc.deleteCategory = function (id) {
-	    return prvt._request('/categories/' + id, 'DELETE');
+	    return prvt.request('/categories/' + id, 'DELETE');
 	  };
 
 	  return pblc;
