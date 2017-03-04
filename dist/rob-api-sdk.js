@@ -191,7 +191,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var query = {};
 
 	    if (opts.include) {
-	      query.include = _extends({}, opts.include);
+	      query.include = opts.include;
 	    }
 
 	    return prvt._request('/users', 'GET', {}, query);
@@ -220,7 +220,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var query = {};
 
 	    if (opts.include) {
-	      query.include = _extends({}, opts.include);
+	      query.include = opts.include;
 	    }
 
 	    if (opts.filter) {
@@ -253,7 +253,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var query = {};
 
 	    if (opts.include) {
-	      query.include = _extends({}, opts.include);
+	      query.include = opts.include;
 	    }
 
 	    return prvt._request('/categories', 'GET', {}, query);

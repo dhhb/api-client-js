@@ -99,7 +99,7 @@ export default function createAPIClient (_apiUrl) {
     let query = {};
 
     if (opts.include) {
-      query.include = { ...opts.include };
+      query.include = opts.include;
     }
 
     return prvt._request('/users', 'GET', {}, query);
@@ -126,7 +126,7 @@ export default function createAPIClient (_apiUrl) {
     let query = {};
 
     if (opts.include) {
-      query.include = { ...opts.include };
+      query.include = opts.include;
     }
 
     if (opts.filter) {
@@ -157,7 +157,7 @@ export default function createAPIClient (_apiUrl) {
     let query = {};
 
     if (opts.include) {
-      query.include = { ...opts.include };
+      query.include = opts.include;
     }
 
     return prvt._request('/categories', 'GET', {}, query);

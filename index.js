@@ -135,7 +135,7 @@ function createAPIClient(_apiUrl) {
     var query = {};
 
     if (opts.include) {
-      query.include = _extends({}, opts.include);
+      query.include = opts.include;
     }
 
     return prvt._request('/users', 'GET', {}, query);
@@ -164,7 +164,7 @@ function createAPIClient(_apiUrl) {
     var query = {};
 
     if (opts.include) {
-      query.include = _extends({}, opts.include);
+      query.include = opts.include;
     }
 
     if (opts.filter) {
@@ -197,7 +197,7 @@ function createAPIClient(_apiUrl) {
     var query = {};
 
     if (opts.include) {
-      query.include = _extends({}, opts.include);
+      query.include = opts.include;
     }
 
     return prvt._request('/categories', 'GET', {}, query);
