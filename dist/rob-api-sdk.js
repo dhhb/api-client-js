@@ -264,11 +264,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	  };
 
 	  pblc.createCategory = function (data) {
-	    return prvt._request('/categories', 'POST', prvt._createJsonApiRecord('articles', data));
+	    return prvt._request('/categories', 'POST', prvt._createJsonApiRecord('categories', data));
 	  };
 
 	  pblc.updateCategory = function (data, id) {
-	    return prvt._request('/categories/' + id, 'PATCH', prvt._createJsonApiRecord('articles', id, data));
+	    return prvt._request('/categories/' + id, 'PATCH', prvt._createJsonApiRecord('categories', id, data));
 	  };
 
 	  pblc.deleteCategory = function (id) {
