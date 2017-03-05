@@ -97,11 +97,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	}(_events.EventEmitter);
 
 	function createAPIClient(_apiUrl) {
-	  var apiUrl = _apiUrl + '/v1';
+	  var apiVersion = 1;
+	  var apiUrl = _apiUrl + '/v' + apiVersion;
 
 	  var prvt = {};
 	  var pblc = {
 	    apiUrl: apiUrl,
+	    apiVersion: apiVersion,
 	    events: new ApiEmitter()
 	  };
 
@@ -206,7 +208,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      query.include = opts.include;
 	    }
 
-	    return prvt.request('/users/' + id, 'GET');
+	    return prvt.request('/users/' + id, 'GET', {}, query);
 	  };
 
 	  pblc.createUser = function (data) {
@@ -284,7 +286,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      query.include = opts.include;
 	    }
 
-	    return prvt.request('/categories/' + id, 'GET');
+	    return prvt.request('/categories/' + id, 'GET', {}, query);
 	  };
 
 	  pblc.createCategory = function (data) {
