@@ -198,6 +198,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	  };
 
 	  pblc.getUser = function (id) {
+	    var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+	    var query = {};
+
+	    if (opts.include) {
+	      query.include = opts.include;
+	    }
+
 	    return prvt.request('/users/' + id, 'GET');
 	  };
 
@@ -231,7 +239,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	  };
 
 	  pblc.getArticle = function (id) {
-	    return prvt.request('/articles/' + id, 'GET');
+	    var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+	    var query = {};
+
+	    if (opts.include) {
+	      query.include = opts.include;
+	    }
+
+	    return prvt.request('/articles/' + id, 'GET', {}, query);
 	  };
 
 	  pblc.createArticle = function (data) {
@@ -260,6 +276,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	  };
 
 	  pblc.getCategory = function (id) {
+	    var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+	    var query = {};
+
+	    if (opts.include) {
+	      query.include = opts.include;
+	    }
+
 	    return prvt.request('/categories/' + id, 'GET');
 	  };
 

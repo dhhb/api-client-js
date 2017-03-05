@@ -96,7 +96,7 @@ export default function createAPIClient (_apiUrl) {
 
   // Users
   pblc.getUsers = (opts = {}) => {
-    let query = {};
+    const query = {};
 
     if (opts.include) {
       query.include = opts.include;
@@ -105,7 +105,13 @@ export default function createAPIClient (_apiUrl) {
     return prvt.request('/users', 'GET', {}, query);
   };
 
-  pblc.getUser = (id) => {
+  pblc.getUser = (id, opts = {}) => {
+    const query = {};
+
+    if (opts.include) {
+      query.include = opts.include;
+    }
+
     return prvt.request(`/users/${id}`, 'GET');
   };
 
@@ -123,7 +129,7 @@ export default function createAPIClient (_apiUrl) {
 
   // Articles
   pblc.getArticles = (opts = {}) => {
-    let query = {};
+    const query = {};
 
     if (opts.include) {
       query.include = opts.include;
@@ -136,8 +142,14 @@ export default function createAPIClient (_apiUrl) {
     return prvt.request('/articles', 'GET', {}, query);
   };
 
-  pblc.getArticle = (id) => {
-    return prvt.request(`/articles/${id}`, 'GET');
+  pblc.getArticle = (id, opts = {}) => {
+    const query = {};
+
+    if (opts.include) {
+      query.include = opts.include;
+    }
+
+    return prvt.request(`/articles/${id}`, 'GET', {}, query);
   };
 
   pblc.createArticle = (data) => {
@@ -154,7 +166,7 @@ export default function createAPIClient (_apiUrl) {
 
   // Categories
   pblc.getCategories = (opts = {}) => {
-    let query = {};
+    const query = {};
 
     if (opts.include) {
       query.include = opts.include;
@@ -163,7 +175,13 @@ export default function createAPIClient (_apiUrl) {
     return prvt.request('/categories', 'GET', {}, query);
   };
 
-  pblc.getCategory = (id) => {
+  pblc.getCategory = (id, opts = {}) => {
+    const query = {};
+
+    if (opts.include) {
+      query.include = opts.include;
+    }
+
     return prvt.request(`/categories/${id}`, 'GET');
   };
 

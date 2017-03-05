@@ -142,6 +142,14 @@ function createAPIClient(_apiUrl) {
   };
 
   pblc.getUser = function (id) {
+    var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+    var query = {};
+
+    if (opts.include) {
+      query.include = opts.include;
+    }
+
     return prvt.request('/users/' + id, 'GET');
   };
 
@@ -175,7 +183,15 @@ function createAPIClient(_apiUrl) {
   };
 
   pblc.getArticle = function (id) {
-    return prvt.request('/articles/' + id, 'GET');
+    var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+    var query = {};
+
+    if (opts.include) {
+      query.include = opts.include;
+    }
+
+    return prvt.request('/articles/' + id, 'GET', {}, query);
   };
 
   pblc.createArticle = function (data) {
@@ -204,6 +220,14 @@ function createAPIClient(_apiUrl) {
   };
 
   pblc.getCategory = function (id) {
+    var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+    var query = {};
+
+    if (opts.include) {
+      query.include = opts.include;
+    }
+
     return prvt.request('/categories/' + id, 'GET');
   };
 
