@@ -7,11 +7,13 @@ superagentJsonapify(request);
 class ApiEmitter extends EventEmitter {}
 
 export default function createAPIClient (_apiUrl) {
-  const apiUrl = `${_apiUrl}/v1`;
+  const apiVersion = 1;
+  const apiUrl = `${_apiUrl}/v${apiVersion}`;
 
   const prvt = {};
   const pblc = {
     apiUrl,
+    apiVersion,
     events: new ApiEmitter()
   };
 
@@ -112,7 +114,7 @@ export default function createAPIClient (_apiUrl) {
       query.include = opts.include;
     }
 
-    return prvt.request(`/users/${id}`, 'GET');
+    return prvt.request(`/users/${id}`, 'GET', {}, query);
   };
 
   pblc.createUser = (data) => {
@@ -182,7 +184,7 @@ export default function createAPIClient (_apiUrl) {
       query.include = opts.include;
     }
 
-    return prvt.request(`/categories/${id}`, 'GET');
+    return prvt.request(`/categories/${id}`, 'GET', {}, query);
   };
 
   pblc.createCategory = (data) => {
