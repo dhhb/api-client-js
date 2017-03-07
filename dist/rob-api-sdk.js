@@ -147,8 +147,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  prvt.request = function (resource) {
 	    var method = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'GET';
-	    var params = arguments[2];
-	    var query = arguments[3];
+	    var query = arguments[2];
+	    var params = arguments[3];
 
 	    var url = '' + apiUrl + resource;
 
@@ -174,6 +174,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	    });
 	  };
 
+	  prvt.createQuery = function (opts) {
+	    var query = {};
+
+	    if (Array.isArray(opts.include)) {
+	      query.include = opts.include.join(',');
+	    }
+
+	    if (opts.filter) {
+	      query.filter = _extends({}, opts.filter);
+	    }
+
+	    return query;
+	  };
+
 	  // Authentication
 	  pblc.setSession = function (tokenId) {
 	    sessionTokenId = tokenId;
@@ -181,42 +195,38 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return pblc;
 	  };
 
+	  // Tokens
 	  pblc.authorize = function (creds) {
-	    return prvt.request('/token', 'POST', prvt.createJsonApiRecord('token', creds));
+	    return prvt.request('/token', 'POST', {}, prvt.createJsonApiRecord('token', creds));
 	  };
-	  pblc.login = pblc.authorize; // alias
+
+	  pblc.unauthorize = function (id) {
+	    return prvt.request('/token/' + id, 'DELETE');
+	  };
+
+	  // aliases
+	  pblc.login = pblc.authorize;
+	  pblc.logout = pblc.unauthorize;
 
 	  // Users
 	  pblc.getUsers = function () {
 	    var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
-	    var query = {};
-
-	    if (opts.include) {
-	      query.include = opts.include;
-	    }
-
-	    return prvt.request('/users', 'GET', {}, query);
+	    return prvt.request('/users', 'GET', prvt.createQuery(opts));
 	  };
 
 	  pblc.getUser = function (id) {
 	    var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-	    var query = {};
-
-	    if (opts.include) {
-	      query.include = opts.include;
-	    }
-
-	    return prvt.request('/users/' + id, 'GET', {}, query);
+	    return prvt.request('/users/' + id, 'GET', prvt.createQuery(opts));
 	  };
 
 	  pblc.createUser = function (data) {
-	    return prvt.request('/users', 'POST', prvt.createJsonApiRecord('users', data));
+	    return prvt.request('/users', 'POST', {}, prvt.createJsonApiRecord('users', data));
 	  };
 
 	  pblc.updateUser = function (data, id) {
-	    return prvt.request('/users/' + id, 'PATCH', prvt.createJsonApiRecord('users', id, data));
+	    return prvt.request('/users/' + id, 'PATCH', {}, prvt.createJsonApiRecord('users', id, data));
 	  };
 
 	  pblc.deleteUser = function (id) {
@@ -227,37 +237,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	  pblc.getArticles = function () {
 	    var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
-	    var query = {};
-
-	    if (opts.include) {
-	      query.include = opts.include;
-	    }
-
-	    if (opts.filter) {
-	      query.filter = _extends({}, opts.filter);
-	    }
-
-	    return prvt.request('/articles', 'GET', {}, query);
+	    return prvt.request('/articles', 'GET', prvt.createQuery(opts));
 	  };
 
 	  pblc.getArticle = function (id) {
 	    var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-	    var query = {};
-
-	    if (opts.include) {
-	      query.include = opts.include;
-	    }
-
-	    return prvt.request('/articles/' + id, 'GET', {}, query);
+	    return prvt.request('/articles/' + id, 'GET', prvt.createQuery(opts));
 	  };
 
 	  pblc.createArticle = function (data) {
-	    return prvt.request('/articles', 'POST', prvt.createJsonApiRecord('articles', data));
+	    return prvt.request('/articles', 'POST', {}, prvt.createJsonApiRecord('articles', data));
 	  };
 
 	  pblc.updateArticle = function (data, id) {
-	    return prvt.request('/articles/' + id, 'PATCH', prvt.createJsonApiRecord('articles', id, data));
+	    return prvt.request('/articles/' + id, 'PATCH', {}, prvt.createJsonApiRecord('articles', id, data));
 	  };
 
 	  pblc.deleteArticle = function (id) {
@@ -268,33 +262,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	  pblc.getCategories = function () {
 	    var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
-	    var query = {};
-
-	    if (opts.include) {
-	      query.include = opts.include;
-	    }
-
-	    return prvt.request('/categories', 'GET', {}, query);
+	    return prvt.request('/categories', 'GET', prvt.createQuery(opts));
 	  };
 
 	  pblc.getCategory = function (id) {
 	    var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-	    var query = {};
-
-	    if (opts.include) {
-	      query.include = opts.include;
-	    }
-
-	    return prvt.request('/categories/' + id, 'GET', {}, query);
+	    return prvt.request('/categories/' + id, 'GET', prvt.createQuery(opts));
 	  };
 
 	  pblc.createCategory = function (data) {
-	    return prvt.request('/categories', 'POST', prvt.createJsonApiRecord('categories', data));
+	    return prvt.request('/categories', 'POST', {}, prvt.createJsonApiRecord('categories', data));
 	  };
 
 	  pblc.updateCategory = function (data, id) {
-	    return prvt.request('/categories/' + id, 'PATCH', prvt.createJsonApiRecord('categories', id, data));
+	    return prvt.request('/categories/' + id, 'PATCH', {}, prvt.createJsonApiRecord('categories', id, data));
 	  };
 
 	  pblc.deleteCategory = function (id) {

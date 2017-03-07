@@ -53,7 +53,7 @@ export default function createAPIClient (_apiUrl) {
     return jsonData;
   };
 
-  prvt.request = (resource, method = 'GET', params, query) => {
+  prvt.request = (resource, method = 'GET', query, params) => {
     const url = `${apiUrl}${resource}`;
 
     return new Promise((resolve, reject) => {
@@ -84,6 +84,20 @@ export default function createAPIClient (_apiUrl) {
     });
   };
 
+  prvt.createQuery = (opts) => {
+    const query = {};
+
+    if (Array.isArray(opts.include)) {
+      query.include = opts.include.join(',');
+    }
+
+    if (opts.filter) {
+      query.filter = { ...opts.filter };
+    }
+
+    return query;
+  };
+
   // Authentication
   pblc.setSession = (tokenId) => {
     sessionTokenId = tokenId;
@@ -91,38 +105,34 @@ export default function createAPIClient (_apiUrl) {
     return pblc;
   };
 
+  // Tokens
   pblc.authorize = (creds) => {
-    return prvt.request('/token', 'POST', prvt.createJsonApiRecord('token', creds));
+    return prvt.request('/token', 'POST', {}, prvt.createJsonApiRecord('token', creds));
   };
-  pblc.login = pblc.authorize; // alias
+
+  pblc.unauthorize = (id) => {
+    return prvt.request(`/token/${id}`, 'DELETE');
+  };
+
+  // aliases
+  pblc.login = pblc.authorize;
+  pblc.logout = pblc.unauthorize;
 
   // Users
   pblc.getUsers = (opts = {}) => {
-    const query = {};
-
-    if (opts.include) {
-      query.include = opts.include;
-    }
-
-    return prvt.request('/users', 'GET', {}, query);
+    return prvt.request('/users', 'GET', prvt.createQuery(opts));
   };
 
   pblc.getUser = (id, opts = {}) => {
-    const query = {};
-
-    if (opts.include) {
-      query.include = opts.include;
-    }
-
-    return prvt.request(`/users/${id}`, 'GET', {}, query);
+    return prvt.request(`/users/${id}`, 'GET', prvt.createQuery(opts));
   };
 
   pblc.createUser = (data) => {
-    return prvt.request('/users', 'POST', prvt.createJsonApiRecord('users', data));
+    return prvt.request('/users', 'POST', {}, prvt.createJsonApiRecord('users', data));
   };
 
   pblc.updateUser = (data, id) => {
-    return prvt.request(`/users/${id}`, 'PATCH', prvt.createJsonApiRecord('users', id, data));
+    return prvt.request(`/users/${id}`, 'PATCH', {}, prvt.createJsonApiRecord('users', id, data));
   };
 
   pblc.deleteUser = (id) => {
@@ -131,35 +141,19 @@ export default function createAPIClient (_apiUrl) {
 
   // Articles
   pblc.getArticles = (opts = {}) => {
-    const query = {};
-
-    if (opts.include) {
-      query.include = opts.include;
-    }
-
-    if (opts.filter) {
-      query.filter = { ...opts.filter };
-    }
-
-    return prvt.request('/articles', 'GET', {}, query);
+    return prvt.request('/articles', 'GET', prvt.createQuery(opts));
   };
 
   pblc.getArticle = (id, opts = {}) => {
-    const query = {};
-
-    if (opts.include) {
-      query.include = opts.include;
-    }
-
-    return prvt.request(`/articles/${id}`, 'GET', {}, query);
+    return prvt.request(`/articles/${id}`, 'GET', prvt.createQuery(opts));
   };
 
   pblc.createArticle = (data) => {
-    return prvt.request('/articles', 'POST', prvt.createJsonApiRecord('articles', data));
+    return prvt.request('/articles', 'POST', {}, prvt.createJsonApiRecord('articles', data));
   };
 
   pblc.updateArticle = (data, id) => {
-    return prvt.request(`/articles/${id}`, 'PATCH', prvt.createJsonApiRecord('articles', id, data));
+    return prvt.request(`/articles/${id}`, 'PATCH', {}, prvt.createJsonApiRecord('articles', id, data));
   };
 
   pblc.deleteArticle = (id) => {
@@ -168,31 +162,19 @@ export default function createAPIClient (_apiUrl) {
 
   // Categories
   pblc.getCategories = (opts = {}) => {
-    const query = {};
-
-    if (opts.include) {
-      query.include = opts.include;
-    }
-
-    return prvt.request('/categories', 'GET', {}, query);
+    return prvt.request('/categories', 'GET', prvt.createQuery(opts));
   };
 
   pblc.getCategory = (id, opts = {}) => {
-    const query = {};
-
-    if (opts.include) {
-      query.include = opts.include;
-    }
-
-    return prvt.request(`/categories/${id}`, 'GET', {}, query);
+    return prvt.request(`/categories/${id}`, 'GET', prvt.createQuery(opts));
   };
 
   pblc.createCategory = (data) => {
-    return prvt.request('/categories', 'POST', prvt.createJsonApiRecord('categories', data));
+    return prvt.request('/categories', 'POST', {}, prvt.createJsonApiRecord('categories', data));
   };
 
   pblc.updateCategory = (data, id) => {
-    return prvt.request(`/categories/${id}`, 'PATCH', prvt.createJsonApiRecord('categories', id, data));
+    return prvt.request(`/categories/${id}`, 'PATCH', {}, prvt.createJsonApiRecord('categories', id, data));
   };
 
   pblc.deleteCategory = (id) => {
@@ -201,4 +183,3 @@ export default function createAPIClient (_apiUrl) {
 
   return pblc;
 }
-
